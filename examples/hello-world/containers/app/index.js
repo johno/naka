@@ -2,6 +2,8 @@ const h = require('../../../../').html
 
 module.exports = () => {
   return h`
-    Hello, world!
+    <h1>
+      Hello, world!
+    </h1>
   `
 }

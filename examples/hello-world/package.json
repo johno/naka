@@ -4,11 +4,14 @@
   "description": "New naka project",
   "main": "index.js",
   "scripts": {
+    "start": "browserify index.js -o dist/bundle.js && budo",
     "test": "ava **/*-test.js"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "browserify": "^13.0.1",
+    "budo": "^8.3.0",
     "is-present": "^1.0.0"
   }
 }
