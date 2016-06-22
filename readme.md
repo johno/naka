@@ -1,5 +1,7 @@
 # naka [![Build Status](https://secure.travis-ci.org/johnotander/naka.svg?branch=master)](https://travis-ci.org/johnotander/naka) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
+__Work in progress__
+
 A minimalist front end framework.
 
 #### How is `naka` different?
