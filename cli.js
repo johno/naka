@@ -4,9 +4,12 @@ const meow = require('meow')
 const cpDir = require('copy-dir')
 const isBlank = require('is-blank')
 const path = require('path')
+const budo = require('budo')
 const fs = require('fs')
 
 const cli = meow(`
+  ✨ ✨ ✨ 
+
   Usage
     $ naka <command> <options...>
 
@@ -37,7 +40,7 @@ const cmd = cli.input[0]
 
 if (isBlank(cmd)) {
   console.error(`
-    no command specified
+    😔  no command specified
 
     $ naka -h
   `)
@@ -45,12 +48,22 @@ if (isBlank(cmd)) {
   process.exit(1)
 }
 
+if (cmd === 'hi') {
+  console.log('hey back! 👬 ')
+  process.exit(0)
+}
+
+if (cmd === 'fuck') {
+  console.log('💩 💩 💩 ')
+  process.exit(0)
+}
+
 const mkdir = name => {
   try {
     fs.mkdirSync(name)
   } catch (e) {
     if (e.code === 'EEXIST') {
-      console.error(`naka could not create a project there, ${name} already exists`)
+      console.error(`🙅 🙅 🙅  naka could not create a project there, ${name} already exists`)
 			process.exit(1)
     } else {
       throw e
@@ -63,7 +76,10 @@ if (cmd == 'new') {
 
 	if (isBlank(projName)) {
     console.error(`
-      no project name was specified
+      😕  no project name was specified
+
+      how about unicorn-cat? 🦄  😸
+      $ naka new unicorn-cat
 
       $ naka -h
     `)
