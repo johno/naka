@@ -22,6 +22,7 @@
   "dependencies": {
     "ava": "^0.15.2",
     "budo": "^8.3.0",
+    "copy-dir": "0.0.8",
     "is-blank": "^1.1.0",
     "is-present": "^1.0.0",
     "meow": "^3.7.0",
