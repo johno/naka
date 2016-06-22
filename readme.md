@@ -35,6 +35,42 @@ npm install -g naka
 naka -h
 ```
 
+#### Components
+
+A naka component is nothing more than a function that returns a template string.
+
+```js
+const h = require('naka/html')
+const toPercent = require('to-percent')
+
+module.exports = ({ foo, bar}) => h`
+  <h1 class="f4 mt2">
+    ${foo} <br>
+    <small>
+      ${toPercent(bar)}
+    </small>
+  </h1>
+`
+```
+
+A component always comes with a test
+
+```js
+import test from 'ava'
+import comp from './'
+
+test('parses the percentage', t => {
+  const compHtml = comp({ foo: 'baz', bar: 0.12 })
+  t.true(compHtml.includes('12%'))
+})
+
+
+test('adds an h1', t => {
+  const compHtml = comp({ foo: 'baz', bar: 0.12 })
+  t.true(compHtml.includes('<h1>baz'))
+})
+```
+
 ## Architecture
 
 Naka attempts to use convention to remove boilerplate.
