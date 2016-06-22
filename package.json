@@ -8,7 +8,7 @@
     "naka": "cli.js"
   },
   "scripts": {
-    "test": "ava"
+    "test": "ava -v"
   },
   "repository": "johnotander/naka",
   "keywords": [
@@ -21,6 +21,8 @@
   "license": "MIT",
   "dependencies": {
     "ava": "^0.15.2",
+    "is-blank": "^1.1.0",
+    "is-present": "^1.0.0",
     "meow": "^3.7.0",
     "minitachyons": "^0.1.11",
     "yo-yo": "^1.2.1"
