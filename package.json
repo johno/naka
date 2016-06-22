@@ -4,17 +4,26 @@
   "author": "John Otander",
   "version": "0.1.0",
   "main": "index.js",
-  "files": [
-    "index.js"
-  ],
+  "bin": {
+    "naka": "cli.js"
+  },
   "scripts": {
     "test": "ava"
   },
   "repository": "johnotander/naka",
-  "keywords": [],
+  "keywords": [
+    "framework",
+    "spa",
+    "naka",
+    "minimal",
+    "front end"
+  ],
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {
-    "ava": "*"
-  }
+  "dependencies": {
+    "ava": "^0.15.2",
+    "meow": "^3.7.0",
+    "minitachyons": "^0.1.11",
+    "yo-yo": "^1.2.1"
+  },
+  "devDependencies": {}
 }
