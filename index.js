@@ -1,7 +1,7 @@
-'use strict'
-
-module.exports = function naka (options) {
-  options = options || {}
-
-  return true
+let naka = opts => {
+  return true  
 }
+
+module.exports = naka
+
+naka.html = require('yo-yo')
