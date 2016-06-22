@@ -35,6 +35,42 @@ npm install -g naka
 naka -h
 ```
 
+## Architecture
+
+Naka attempts to use convention to remove boilerplate.
+All elements have their own directory with an index.js and element-name-test.js.
+This ensures that the test lives next to the module that it tests.
+
+```
+app-name/
+  |
+  |
+  components/
+      |
+      |
+      my-component/
+          |
+          |
+          `index.js
+          `my-component-test.js
+  |
+  |
+  models/
+      |
+      |
+      my-model/
+          |
+          |
+          `index.js
+          `my-model-test.js
+  |
+  |
+  `index.html
+  `package.json
+  `app.js
+  `routes.js
+``` 
+
 ## License
 
 MIT
