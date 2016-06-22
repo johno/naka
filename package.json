@@ -27,6 +27,8 @@
     "is-present": "^1.0.0",
     "meow": "^3.7.0",
     "minitachyons": "^0.1.11",
+    "send-action": "^2.0.2",
+    "sheet-router": "^3.1.0",
     "yo-yo": "^1.2.1"
   },
   "devDependencies": {}

@@ -4,7 +4,7 @@
   "description": "New naka project",
   "main": "index.js",
   "scripts": {
-    "start": "browserify index.js -o dist/bundle.js && budo",
+    "start": "rm -rf dist && mkdir dist && browserify index.js -o dist/bundle.js && budo",
     "test": "ava **/*-test.js"
   },
   "author": "",
@@ -12,6 +12,7 @@
   "dependencies": {
     "browserify": "^13.0.1",
     "budo": "^8.3.0",
+    "dot-prop": "^3.0.0",
     "is-present": "^1.0.0"
   }
 }

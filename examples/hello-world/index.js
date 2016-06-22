@@ -1,7 +1,11 @@
 const naka = require('../../')
 const app = naka()
 
-// app.container(require('./containers/app'))
+app.model(require('./models/hello'))
 
-const appHtml = require('./containers/app')()
-document.getElementById('naka-root').appendChild(appHtml)
+app.router(route => [
+  route('/', require('./containers/app')),
+  route('/other', require('./containers/other'))
+])
+
+app.init()
