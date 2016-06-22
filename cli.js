@@ -45,6 +45,19 @@ if (isBlank(cmd)) {
   process.exit(1)
 }
 
+const mkdir = name => {
+  try {
+    fs.mkdirSync(name)
+  } catch (e) {
+    if (e.code === 'EEXIST') {
+      console.error(`naka could not create a project there, ${name} already exists`)
+			process.exit(1)
+    } else {
+      throw e
+    }
+  }
+}
+
 if (cmd == 'new') {
   const projName = cli.input[1]
 
@@ -59,18 +72,6 @@ if (cmd == 'new') {
 	}
 
 	mkdir(projName)
-  cpDir('./generators/templates/new', projName)
+  cpDir.sync(path.join(__dirname, './generators/templates/new'), projName)
 }
 
-const mkdir = name => {
-  try {
-    fs.mkdirSync(name)
-  } catch (e) {
-    if (e.code === 'EEXIST') {
-      console.error(`naka could not create a project there, ${name} already exists`)
-			process.exit(1)
-    } else {
-      throw e
-    }
-  }
-}
