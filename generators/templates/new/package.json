@@ -4,7 +4,8 @@
   "description": "New naka project",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "start": "naka serve",
+    "test": "naka test"
   },
   "dependencies": {
     "naka": "latest"

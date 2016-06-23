@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const meow = require('meow')
+const exec = require('child_process').exec
 const cpDir = require('copy-dir')
 const isBlank = require('is-blank')
 const path = require('path')
@@ -32,7 +33,8 @@ const cli = meow(`
     t: 'test',
     g: 'generate',
     prod: 'production',
-    dev: 'development'  
+    dev: 'development',
+    w: 'watch'
   }
 })
 
@@ -60,6 +62,20 @@ if (cmd === 'serve') {
     port: 1234,
     livePort: 4321,
     stream: process.stdout
+  })
+}
+
+if (cmd === 'test') {
+  exec('ava **/**/*-test.js -v', (err, stdout, stderr) => {
+    if (err) {
+      throw err
+    }
+
+    if (stderr) {
+      console.error(stderr)
+    }
+
+    console.log(stdout)
   })
 }
 
