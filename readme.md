@@ -6,7 +6,10 @@ A minimalist front end framework.
 
 #### How is `naka` different?
 
-Naka seeks to blend the best parts of popular front end frameworks while remaining opinionated and minimal.
+Naka seeks to blend the best parts of other popular front end frameworks while remaining opinionated and minimal.
+It heavily relies on `morphdom`, `bel`, and `yo-yo` (naka/morphdom/bel/yo-yo => NMBY stack).
+Naka uses a minimal redux flow with global state (via `send-action`).
+A lot of time has also been spent on integrating testing and creating a powerful CLI.
 
 #### What does `naka` offer?
 
