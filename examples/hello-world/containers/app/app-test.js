@@ -2,7 +2,13 @@ import test from 'ava'
 import app from './'
 
 test('it says hello', t => {
-  const appHtml = app().toString()
+  const state = {
+    hello: {
+      title: 'Hello, world!'
+    }
+  }
 
-  t.true(appHtml.includes('Hello, world!'))
+  const appHtml = app(undefined, state).toString()
+
+  t.true(appHtml.includes('Hello'))
 })
