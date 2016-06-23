@@ -2,7 +2,7 @@
   "name": "naka",
   "description": "A minimalist front end framework",
   "author": "John Otander",
-  "version": "0.0.1-beta.3",
+  "version": "0.0.1-beta.4",
   "main": "index.js",
   "bin": {
     "naka": "cli.js"
@@ -24,12 +24,14 @@
     "budo": "^8.3.0",
     "copy-dir": "0.0.8",
     "dot-prop": "^3.0.0",
+    "humanize-list": "^1.0.1",
     "is-blank": "^1.1.0",
     "is-present": "^1.0.0",
     "meow": "^3.7.0",
     "minitachyons": "^0.1.11",
     "send-action": "^2.0.2",
     "sheet-router": "^3.1.0",
+    "strip-html-comments": "^1.0.0",
     "xtend": "^4.0.1",
     "yo-yo": "^1.2.1"
   },
