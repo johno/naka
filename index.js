@@ -1,5 +1,7 @@
 const isPresent = require('is-present')
 const sendAction = require('send-action')
+const dotProp = require('dot-prop')
+const extend = require('xtend')
 const yo = require('yo-yo')
 const sr = require('sheet-router')
 
@@ -19,12 +21,10 @@ function naka () {
   return init
 
   function model (m) {
-    models[m.name]
+    models[m.name] = m
 
     if (isPresent(state[m.name])) {
-      console.error(`
-        There are conflicting models with name ${m.name}
-      `)
+      console.error(`There are conflicting models with name ${m.name}`)
     }
 
     // Set initial state during model registration
@@ -38,26 +38,34 @@ function naka () {
 
   function init () {
     const dispatch = sendAction({
-      onaction: function (action, state) {
-        console.log(action)
-        const [model, actionType] = action.type.split('.')
-        dotProp(`${model}.
-        
-        return state
-      },
-
-      onchange: function (action, state, prevState) {
-        console.log(action)
-        if (newState === prevState) return
-
-        const oldDOM = document.getElementById('naka-root')
-        const newTree = r(window.location.pathname, newState, dispatch)
-        newTree.setAttribute('id', 'naka-root')
-        yo.update(oldTree, newTree)
-      },
-
+      onaction: handleAction,
+      onchange: handleChange,
       state: state
     })
+
+    function handleAction (action, state) {
+      const func = dotProp.get(models, action.type)
+      const [modelName, actionOrReducer, _func] = action.type.split('.')
+
+      if (actionOrReducer === 'actions') {
+        return func(action, state, dispatch)
+      } else {
+        const mutatedState = {}
+        mutatedState[modelName] = func(action, state, dispatch)
+
+        const newState = extend(state, mutatedState)
+        handleChange(undefined, newState, state)
+      }
+    }
+
+    function handleChange (action, state, prevState) {
+      if (state === prevState) return
+
+      const oldTree = document.getElementById('naka-root')
+      const newTree = r(window.location.pathname, state, dispatch)
+      newTree.setAttribute('id', 'naka-root')
+      yo.update(oldTree, newTree)
+    }
 
     document
       .getElementById('naka-root')

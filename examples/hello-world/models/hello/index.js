@@ -11,13 +11,13 @@ module.exports = {
 
   reducers: {
     setCount: (action, state) => {
-      state.count = action
+      state.hello.count = action.count
       return state
     }
   },
 
   actions: {
-    decrement: (action, state, dispatch) => dispatch('hello:setCount', state.hello.count - 1),
-    increment: (action, state, dispatch) => dispatch('hello:setCount', state.hello.count + 1)
+    decrement: (action, state, dispatch) => dispatch('hello.reducers.setCount', { count: state.hello.count - 1 }),
+    increment: (action, state, dispatch) => dispatch('hello.reducers.setCount', { count: state.hello.count + 1 })
   }
 }
