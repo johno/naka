@@ -6,6 +6,9 @@
   "scripts": {
     "test": "ava"
   },
+  "dependencies": {
+    "naka": "latest"
+  },
   "author": "",
   "license": "MIT"
 }
