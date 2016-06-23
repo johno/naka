@@ -48,6 +48,21 @@ if (isBlank(cmd)) {
   process.exit(1)
 }
 
+if (cmd === 'serve') {
+  console.log(`
+🎉 🎉 🎉  - naka serve
+      
+ ---
+`)
+
+  budo('index.js', {
+    live: true,
+    port: 1234,
+    livePort: 4321,
+    stream: process.stdout
+  })
+}
+
 if (cmd === 'hi') {
   console.log('hey back! 👬 ')
   process.exit(0)

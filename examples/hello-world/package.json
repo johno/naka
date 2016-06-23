@@ -4,7 +4,7 @@
   "description": "New naka project",
   "main": "index.js",
   "scripts": {
-    "start": "rm -rf dist && mkdir dist && browserify index.js -o dist/bundle.js && budo",
+    "start": "../../cli.js serve",
     "test": "ava **/*-test.js"
   },
   "author": "",
