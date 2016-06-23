@@ -27,7 +27,6 @@ function naka () {
       console.error(`There are conflicting models with name ${m.name}`)
     }
 
-    // Set initial state during model registration
     state[m.name] = m.state
   }
 
