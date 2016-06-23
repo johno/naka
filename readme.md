@@ -147,6 +147,7 @@ Thank you to all the contributors that have been involved.
 - [`ava`](https://github.com/sindresorhus/ava)
 - [`browserify`](https://github.com/substack/node-browserify)
 - [`budo`](https://github.com/mattdesl/budo)
+- [`send-action`](https://github.com/sethvincent/send-action)
 - [`sheet-router`](https://github.com/yoshuawuyts/sheet-router)
 - [`minitachyons`](https://github.com/johnotander/minitachyons)
 
