@@ -11,11 +11,18 @@ It heavily relies on `morphdom`, `bel`, and `yo-yo` (naka/morphdom/bel/yo-yo => 
 Naka uses a minimal redux flow with global state (via `send-action`).
 A lot of time has also been spent on integrating testing and creating a powerful CLI.
 
+Server side rendering has been supported from the beginning, allowing users without a JS environment to also receive a first class experience.
+Routing is also supported so urls and browser history ensure a consistent and predictable experience.
+
 #### What does `naka` offer?
 
 - an ergonomic cli
 - an emphasis on testing
 - a miniscule footprint
+- routing api
+- components
+- event handling
+- 100% js (no jsx or hbs)
 - global state that is easy
 - universal rendering
 - pluggable api
@@ -67,14 +74,23 @@ A naka component is nothing more than a function that returns a template string.
 const h = require('naka/html')
 const toPercent = require('to-percent')
 
-module.exports = ({ foo, bar}) => h`
-  <h1 class="f4 mt2">
-    ${foo} <br>
-    <small>
-      ${toPercent(bar)}
-    </small>
-  </h1>
-`
+module.exports = (params, state, dispatch) => {
+  const foo = state.foo
+
+  return h`
+    <div>
+      <h1 class="f4 mt2">
+        ${foo.title} <br>
+        <small>
+          ${toPercent(foo.bar)}
+        </small>
+      </h1>
+      <button onclick=${e => dispatch('foo.actions.myAction')}>
+        Hi
+      </button>
+    </div>
+  `
+}
 ```
 
 A component always comes with a test
@@ -83,14 +99,15 @@ A component always comes with a test
 import test from 'ava'
 import comp from './'
 
+const state = { foo: { title: 'baz', bar: 0.12 } }
 test('parses the percentage', t => {
-  const compHtml = comp({ foo: 'baz', bar: 0.12 })
+  const compHtml = comp(state)
   t.true(compHtml.includes('12%'))
 })
 
 
 test('adds an h1', t => {
-  const compHtml = comp({ foo: 'baz', bar: 0.12 })
+  const compHtml = comp(state)
   t.true(compHtml.includes('<h1>baz'))
 })
 ```
