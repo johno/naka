@@ -68,7 +68,7 @@ if (cmd === 'serve') {
 }
 
 if (cmd === 'test') {
-  exec('ava **/*-test.js -v', (err, stdout, stderr) => {
+  exec('ava **/**/*-test.js -v', (err, stdout, stderr) => {
     if (err) {
       throw err
     }
