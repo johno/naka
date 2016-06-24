@@ -9,11 +9,10 @@ module.exports = naka
 naka.html = require('yo-yo')
 
 function naka () {
-  const models = {}
-  const state = {}
+  const _models = {}
+  const _state = {}
 
-  let r = null
-  let appHtml = ''
+  let _router = null
 
   init.model = model
   init.router = router
@@ -22,17 +21,12 @@ function naka () {
 
   function model (m) {
     models[m.name] = m
-
-    if (isPresent(state[m.name])) {
-      console.error(`There are conflicting models with name ${m.name}`)
-    }
-
     state[m.name] = m.state
   }
 
   function router (cb) {
-    r = sr(cb)
-    return r
+    _router = sr(cb)
+    return _router
   }
 
   function init () {
@@ -48,7 +42,7 @@ function naka () {
 
       if (actionOrReducer === 'actions') {
         return func(action, state, dispatch)
-      } else {
+      } else if (actionOrReducer === 'reducers') {
         const mutatedState = {}
         mutatedState[modelName] = func(action, state, dispatch)
 

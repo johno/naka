@@ -95,6 +95,64 @@ test('adds an h1', t => {
 })
 ```
 
+#### Models
+
+Models contain their own state, actions, and reducers.
+All state is managed via the redux flow.
+Their state is namespaced under the global state based on the name key.
+No two models should share the same name.
+
+```js
+module.exports = {
+  name: 'counter',
+
+  state: {
+    count: 0
+  },
+
+  reducers: {
+    setCount: (action, state) => {
+      state.counter.count = action.count
+      return state
+    }
+  },
+
+  actions: {
+    decrement: (action, state, dispatch) => (
+      dispatch('counter.reducers.setCount', {
+        count: state.counter.count - 1
+      })
+    ),
+
+    increment: (action, state, dispatch) => (
+      dispatch('counter.reducers.setCount', {
+        count: state.counter.count + 1
+      })
+    )
+  }
+}
+```
+
+#### Constructing the app
+
+Every generated app has an `index.js` file, this is the entry point of the app. 
+Before initializing the app, you must register your models and routes.
+Then, the app is started by calling `app.init()`.
+
+```js
+const naka = require('naka')
+const app = naka()
+
+app.model(require('./models/hello'))
+
+app.router(route => [
+  route('/', require('./components/app')),
+  route('/users', require('./components/users'))
+])
+
+app.init()
+```
+
 ## Architecture
 
 Naka attempts to use convention to remove boilerplate.
