@@ -8,7 +8,7 @@
     "naka": "cli.js"
   },
   "scripts": {
-    "test": "ava **/**/*-test.js -v"
+    "test": "ava **/**/*-test.js !generators/templates/**/*-test.js -v"
   },
   "repository": "johnotander/naka",
   "keywords": [
