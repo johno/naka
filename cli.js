@@ -22,8 +22,13 @@ const cli = meow(`
     $ naka test - Run the test suite
     $ naka build <options...> - Build the app
 
+  Options
+    --version, -v - Get the version of naka
+    --help, -h - Get cli help
+
   Examples
     $ naka -h
+    $ naka -v
     $ naka new awesome-app
     $ naka t
     $ naka model user
@@ -32,11 +37,9 @@ const cli = meow(`
 `, {
   alias: {
     h: 'help',
-    t: 'test',
-    g: 'generate',
+    v: 'version',
     prod: 'production',
-    dev: 'development',
-    w: 'watch'
+    dev: 'development'
   }
 })
 
