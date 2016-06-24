@@ -16,7 +16,8 @@ const cli = meow(`
 
   Commands
     $ naka new <name> - Create a new app
-    $ naka generate <blueprint> - Item to generate
+    $ naka model <name> - Create a model
+    $ naka component <name> - Create a component
     $ naka serve - Serve the app
     $ naka test - Run the test suite
     $ naka build <options...> - Build the app
@@ -25,7 +26,8 @@ const cli = meow(`
     $ naka -h
     $ naka new awesome-app
     $ naka t
-    $ naka generate model user
+    $ naka model user
+    $ naka component button
     $ naka build -prod
 `, {
   alias: {
@@ -66,7 +68,7 @@ if (cmd === 'serve') {
 }
 
 if (cmd === 'test') {
-  exec('ava **/**/*-test.js -v', (err, stdout, stderr) => {
+  exec('ava **/*-test.js -v', (err, stdout, stderr) => {
     if (err) {
       throw err
     }
@@ -89,12 +91,12 @@ if (cmd === 'fuck') {
   process.exit(0)
 }
 
-const mkdir = name => {
+const mkdir = (name, cmd) => {
   try {
     fs.mkdirSync(name)
   } catch (e) {
     if (e.code === 'EEXIST') {
-      console.error(`🙅 🙅 🙅  naka could not create a project there, ${name} already exists`)
+      console.error(`🙅 🙅 🙅  naka could not create a ${cmd} there, ${name} already exists`)
 			process.exit(1)
     } else {
       throw e
@@ -118,7 +120,25 @@ if (cmd == 'new') {
     process.exit(1)
 	}
 
-	mkdir(projName)
+	mkdir(projName, cmd)
   cpDir.sync(path.join(__dirname, './generators/templates/new'), projName)
 }
 
+if (cmd == 'model') {
+  const modelName = cli.input[1]
+
+	if (isBlank(modelName)) {
+    console.error(`
+      😕  no model name was specified
+
+      how about unicorn-cat? 🦄  😸
+      $ naka model unicorn-cat
+
+      $ naka -h
+    `)
+
+    process.exit(1)
+	}
+
+  cpDir.sync(path.join(__dirname, './generators/templates/model'), `models/${modelName}`)
+}
