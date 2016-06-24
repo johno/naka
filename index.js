@@ -20,8 +20,8 @@ function naka () {
   return init
 
   function model (m) {
-    models[m.name] = m
-    state[m.name] = m.state
+    _models[m.name] = m
+    _state[m.name] = m.state
   }
 
   function router (cb) {
@@ -33,11 +33,11 @@ function naka () {
     const dispatch = sendAction({
       onaction: handleAction,
       onchange: handleChange,
-      state: state
+      state: _state
     })
 
     function handleAction (action, state) {
-      const func = dotProp.get(models, action.type)
+      const func = dotProp.get(_models, action.type)
       const [modelName, actionOrReducer, _func] = action.type.split('.')
 
       if (actionOrReducer === 'actions') {
@@ -55,13 +55,13 @@ function naka () {
       if (state === prevState) return
 
       const oldTree = document.getElementById('naka-root')
-      const newTree = r(window.location.pathname, state, dispatch)
+      const newTree = _router(window.location.pathname, state, dispatch)
       newTree.setAttribute('id', 'naka-root')
       yo.update(oldTree, newTree)
     }
 
     document
       .getElementById('naka-root')
-      .appendChild(r(window.location.pathname, state, dispatch))
+      .appendChild(_router(window.location.pathname, _state, dispatch))
   }
 }
