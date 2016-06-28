@@ -7,7 +7,7 @@ const app = naka()
 
 // Register routes
 app.router(route => [
-  route('/', require('./components/app'))
+  route('/', require('./containers/app'))
 ])
 
 // Start the app
