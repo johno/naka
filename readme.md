@@ -112,12 +112,11 @@ test('adds an h1', t => {
 })
 ```
 
-#### Models
+#### Reducers
 
-Models contain their own state, actions, and reducers.
-All state is managed via the redux flow.
-Their state is namespaced under the global state based on the name key.
-No two models should share the same name.
+Reducers receive data and use that information to modify the global state.
+A reducer can also be used to set the initial state.
+When state changes, the new DOM is drawn and updated with `yo-yo`.
 
 ```js
 module.exports = {
@@ -127,26 +126,36 @@ module.exports = {
     count: 0
   },
 
-  reducers: {
-    setCount: (action, state) => {
-      state.counter.count = action.count
-      return state
-    }
-  },
+  setCount: (action, state) => {
+    state.counter.count = action.count
+    return state
+  }
 
   actions: {
-    decrement: (action, state, dispatch) => (
-      dispatch('counter.reducers.setCount', {
-        count: state.counter.count - 1
-      })
-    ),
+}
+```
 
-    increment: (action, state, dispatch) => (
-      dispatch('counter.reducers.setCount', {
-        count: state.counter.count + 1
-      })
-    )
-  }
+#### Actions
+
+Actions receive an event, the current state, and the dispatch method.
+They do work, often times an API call, and then dispatch a reducer with any relevant information.
+Actions don't modify state directly.
+
+```js
+module.export = {
+  name: 'counter',
+
+  decrement: (action, state, dispatch) => (
+    dispatch('counter.reducers.setCount', {
+      count: state.counter.count - 1
+    })
+  ),
+
+  increment: (action, state, dispatch) => (
+    dispatch('counter.reducers.setCount', {
+      count: state.counter.count + 1
+    })
+  )
 }
 ```
 
@@ -160,11 +169,13 @@ Then, the app is started by calling `app.init()`.
 const naka = require('naka')
 const app = naka()
 
-app.model(require('./models/hello'))
+app.registerReducer(require('./reducers/hello'))
+
+app.registerAction(require('./actions/hello'))
 
 app.router(route => [
-  route('/', require('./components/app')),
-  route('/users', require('./components/users'))
+  route('/', require('./containers/app')),
+  route('/users', require('./containers/users'))
 ])
 
 app.init()
