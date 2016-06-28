@@ -31,6 +31,7 @@
     "minitachyons": "^0.1.11",
     "send-action": "^2.0.2",
     "sheet-router": "^3.1.0",
+    "shtml": "0.0.1-beta.3",
     "strip-html-comments": "^1.0.0",
     "xtend": "^4.0.1",
     "yo-yo": "^1.2.1"

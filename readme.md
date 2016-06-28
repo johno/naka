@@ -11,6 +11,10 @@ It heavily relies on `morphdom`, `bel`, and `yo-yo` (naka/morphdom/bel/yo-yo => 
 Naka uses a minimal redux flow with global state (via `send-action`).
 A lot of time has also been spent on integrating testing and creating a powerful CLI.
 
+This framework is _heavily_ based on [`choo`](https://github.com/yoshuawuyts/choo) (read: steals from choo).
+It primarily diverges in the redux data flow, only supporting the traditional flow (no subscriptions or effects).
+Naka also uses a container/component pattern where components should be purely presentational while containers handle actions/state/etc.
+
 Server side rendering has been supported from the beginning, allowing users without a JS environment to also receive a first class experience.
 Routing is also supported so urls and browser history ensure a consistent and predictable experience.
 
@@ -170,7 +174,6 @@ const naka = require('naka')
 const app = naka()
 
 app.registerReducer(require('./reducers/hello'))
-
 app.registerAction(require('./actions/hello'))
 
 app.router(route => [
@@ -191,6 +194,16 @@ This ensures that the test lives next to the module that it tests.
 app-name/
   |
   |
+  containers/
+      |
+      |
+      my-container/
+          |
+          |
+          `index.js
+          `my-container-test.js
+  |
+  |
   components/
       |
       |
@@ -201,14 +214,24 @@ app-name/
           `my-component-test.js
   |
   |
-  models/
+  actions/
       |
       |
-      my-model/
+      my-action/
           |
           |
           `index.js
-          `my-model-test.js
+          `my-action-test.js
+  |
+  |
+  reducers/
+      |
+      |
+      my-reducer/
+          |
+          |
+          `index.js
+          `my-reducer-test.js
   |
   |
   `index.html

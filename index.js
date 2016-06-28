@@ -1,3 +1,5 @@
+'use strict'
+
 const isPresent = require('is-present')
 const sendAction = require('send-action')
 const dotProp = require('dot-prop')
@@ -9,19 +11,26 @@ module.exports = naka
 naka.html = require('yo-yo')
 
 function naka () {
-  const _models = {}
+  const _dataFlow = {}
   const _state = {}
 
   let _router = null
 
-  init.model = model
+  init.register = register
   init.router = router
   init.init = init
   return init
 
-  function model (m) {
-    _models[m.name] = m
-    _state[m.name] = m.state
+  function register (mod, type) {
+    if (type !== 'action' && type !== 'reducer') {
+      throw new TypeError('naka#register received an unknown type, please specify action/reducer')
+    }
+
+    dotProp.set(_dataFlow, `${mod.name}.${type}s`, mod)
+
+    if (type === 'reducer') {
+      _state[mod.name] = mod.state
+    }
   }
 
   function router (cb) {
@@ -37,7 +46,7 @@ function naka () {
     })
 
     function handleAction (action, state) {
-      const func = dotProp.get(_models, action.type)
+      const func = dotProp.get(_dataFlow, action.type)
       const [modelName, actionOrReducer, _func] = action.type.split('.')
 
       if (actionOrReducer === 'actions') {

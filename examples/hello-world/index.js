@@ -1,7 +1,8 @@
 const naka = require('../../')
 const app = naka()
 
-app.model(require('./models/hello'))
+app.register(require('./reducers/hello'), 'reducer')
+app.register(require('./actions/hello'), 'action')
 
 app.router(route => [
   route('/', require('./containers/app')),
