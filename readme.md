@@ -137,6 +137,34 @@ module.exports = {
 }
 ```
 
+Of course, the reducer also comes with a test.
+
+```js
+import test from 'ava'
+import isPresent from 'is-present'
+
+import hello from './'
+
+const state = {
+  hello: {
+    count: 42
+  }
+}
+
+test('initializes with state', t => {
+  t.true(isPresent(hello.state.count))
+})
+
+test('setCount reduces state', t => {
+  const newState = hello.setCount(
+    { count: 100 },
+    state
+  )
+
+  t.is(newState.hello.count, 100)
+})
+```
+
 #### Actions
 
 Actions receive an event, the current state, and the dispatch method.
@@ -159,6 +187,45 @@ module.export = {
     })
   )
 }
+```
+
+The test :dancers: :sunglasses:
+
+```js
+import test from 'ava'
+import isPresent from 'is-present'
+
+import hello from './'
+
+const state = {
+  hello: {
+    count: 42
+  }
+}
+
+test('decrement calls the correct reducer', t => {
+  hello.decrement(undefined, state, (reducer, _action) => {
+    t.is(reducer, 'hello.reducers.setCount')
+  })
+})
+
+test('decrement returns the correct count', t => {
+  hello.decrement(undefined, state, (_reducer, action) => {
+    t.is(action.count, state.hello.count - 1)
+  })
+})
+
+test('increment calls the correct reducer', t => {
+  hello.increment(undefined, state, (reducer, _action) => {
+    t.is(reducer, 'hello.reducers.setCount')
+  })
+})
+
+test('increment returns the correct count', t => {
+  hello.increment(undefined, state, (_reducer, action) => {
+    t.is(action.count, state.hello.count + 1)
+  })
+})
 ```
 
 #### Constructing the app
