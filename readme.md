@@ -134,8 +134,6 @@ module.exports = {
     state.counter.count = action.count
     return state
   }
-
-  actions: {
 }
 ```
 
@@ -173,8 +171,8 @@ Then, the app is started by calling `app.init()`.
 const naka = require('naka')
 const app = naka()
 
-app.registerReducer(require('./reducers/hello'))
-app.registerAction(require('./actions/hello'))
+app.register(require('./reducers/hello'), 'reducer')
+app.register(require('./actions/hello'), 'action')
 
 app.router(route => [
   route('/', require('./containers/app')),
