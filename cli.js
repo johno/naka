@@ -16,8 +16,10 @@ const cli = meow(`
 
   Commands
     $ naka new <name> - Create a new app
-    $ naka model <name> - Create a model
     $ naka component <name> - Create a component
+    $ naka container <name> - Create a container component
+    $ naka action <name> - Create a action
+    $ naka register <name> - Create a register
     $ naka serve - Serve the app
     $ naka test - Run the test suite
     $ naka build <options...> - Build the app
@@ -31,7 +33,7 @@ const cli = meow(`
     $ naka -v
     $ naka new awesome-app
     $ naka t
-    $ naka model user
+    $ naka action user
     $ naka component button
     $ naka build -prod
 `, {
@@ -127,15 +129,15 @@ if (cmd == 'new') {
   cpDir.sync(path.join(__dirname, './generators/templates/new'), projName)
 }
 
-if (cmd == 'model') {
-  const modelName = cli.input[1]
+if (cmd === 'action' || cmd === 'reducer') {
+  const name = cli.input[1]
 
-	if (isBlank(modelName)) {
+	if (isBlank(name)) {
     console.error(`
-      😕  no model name was specified
+      😕  no ${cmd} name was specified
 
       how about unicorn-cat? 🦄  😸
-      $ naka model unicorn-cat
+      $ naka ${cmd} unicorn-cat
 
       $ naka -h
     `)
@@ -143,5 +145,5 @@ if (cmd == 'model') {
     process.exit(1)
 	}
 
-  cpDir.sync(path.join(__dirname, './generators/templates/model'), `models/${modelName}`)
+  cpDir.sync(path.join(__dirname, `./generators/templates/${cmd}`), `${cmd}s/${name}`)
 }
