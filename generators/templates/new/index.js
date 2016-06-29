@@ -2,8 +2,8 @@ const naka = require('naka')
 const app = naka()
 
 // Register actions and reducers
-// app.register(require('./actions/hello'), 'action')
-// app.register(require('./reducers/hello'), 'reducer')
+app.register(require('./actions/hello'), 'action')
+app.register(require('./reducers/hello'), 'reducer')
 
 // Register routes
 app.router(route => [
