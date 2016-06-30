@@ -4,6 +4,7 @@ const meow = require('meow')
 const exec = require('child_process').exec
 const getStream = require('get-stream')
 const browserify = require('browserify')
+const Uglify = require('uglify-js')
 const mkdirp = require('mkdirp')
 const cpDir = require('copy-dir')
 const isBlank = require('is-blank')
@@ -76,12 +77,21 @@ if (cmd === 'serve') {
 }
 
 if (cmd === 'build') {
-    const stream = browserify('index.js')
-      .bundle()
+    mkdirp.sync('dist')
 
-    getStream(stream).then(str => {
-      mkdirp.sync('dist')
-      fs.writeFileSync('dist/bundle.js', str)
+    getStream(
+      browserify('index.js')
+        .transform('babelify', { presets: ['es2015'] })
+        .transform('uglifyify')
+        .bundle()
+    ).then(stream => {
+      fs.writeFileSync('dist/bundle.js', stream)
+
+      const ast = Uglify.parse(stream)
+      ast.figure_out_scope()
+      const compressor = Uglify.Compressor()
+      const compressedAst = ast.transform(compressor)
+      fs.writeFileSync('dist/bundle.min.js', compressedAst.print_to_string())
     })
 }
 

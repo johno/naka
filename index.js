@@ -14,7 +14,7 @@ function naka () {
   const _dataFlow = {}
   const _state = {}
 
-  let _router = null
+  var _router = null
 
   init.register = register
   init.router = router
