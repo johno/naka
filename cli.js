@@ -2,6 +2,9 @@
 
 const meow = require('meow')
 const exec = require('child_process').exec
+const getStream = require('get-stream')
+const browserify = require('browserify')
+const mkdirp = require('mkdirp')
 const cpDir = require('copy-dir')
 const isBlank = require('is-blank')
 const path = require('path')
@@ -70,6 +73,16 @@ if (cmd === 'serve') {
     livePort: 4321,
     stream: process.stdout
   })
+}
+
+if (cmd === 'build') {
+    const stream = browserify('index.js')
+      .bundle()
+
+    getStream(stream).then(str => {
+      mkdirp.sync('dist')
+      fs.writeFileSync('dist/bundle.js', str)
+    })
 }
 
 if (cmd === 'test') {
