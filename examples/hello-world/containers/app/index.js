@@ -8,6 +8,7 @@ module.exports = (params, state, send) => {
       <h1 class="pb4">
         ${hello.title} ${hello.from}
       </h1>
+      <a href="/other">A Link!</a>
       <button onclick=${e => send('hello.actions.decrement')}>-</button>
       ${hello.count}
       <button onclick=${e => send('hello.actions.increment')}>+</button>

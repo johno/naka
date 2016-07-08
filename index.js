@@ -6,6 +6,7 @@ const dotProp = require('dot-prop')
 const extend = require('xtend')
 const yo = require('yo-yo')
 const sr = require('sheet-router')
+const href = require('sheet-router/href')
 
 module.exports = naka
 naka.html = require('yo-yo')
@@ -45,6 +46,11 @@ function naka () {
       state: _state
     })
 
+    href(function (location) {
+      const newState = extend(_state, { location })
+      handleChange(undefined, newState, _state)
+    })
+
     function handleAction (action, state) {
       const func = dotProp.get(_dataFlow, action.type)
       const [modelName, actionOrReducer, _func] = action.type.split('.')
@@ -64,10 +70,12 @@ function naka () {
       if (state === prevState) return
 
       const oldTree = document.getElementById('naka-root')
-      const newTree = _router(window.location.pathname, state, dispatch)
+      const newTree = _router(state.location, state, dispatch)
       newTree.setAttribute('id', 'naka-root')
       yo.update(oldTree, newTree)
     }
+
+    _state.location = window.location.pathname
 
     document
       .getElementById('naka-root')
