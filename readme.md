@@ -27,7 +27,9 @@ Routing is also supported so urls and browser history ensure a consistent and pr
 - components
 - event handling
 - 100% js (no jsx or hbs)
-- global state that is easy
+- global state
+- live reloading in dev
+- production build step via the cli
 - universal rendering
 - pluggable api
 
