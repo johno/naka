@@ -2,7 +2,7 @@
   "name": "naka",
   "description": "A minimalist front end framework",
   "author": "John Otander",
-  "version": "0.0.1-beta.13",
+  "version": "0.0.1-beta.14",
   "main": "index.js",
   "bin": {
     "naka": "cli.js"
