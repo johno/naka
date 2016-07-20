@@ -62,7 +62,7 @@ function naka () {
         mutatedState[modelName] = func(action, state, dispatch)
 
         const newState = extend(state, mutatedState)
-        handleChange(undefined, newState, state)
+        return newState
       }
     }
 
