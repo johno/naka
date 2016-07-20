@@ -39,7 +39,6 @@
     "strip-html-comments": "^1.0.0",
     "uglify-js": "^2.6.4",
     "uglifyify": "^3.0.2",
-    "xtend": "^4.0.1",
     "yo-yo": "^1.2.1"
   },
   "devDependencies": {}

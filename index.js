@@ -3,7 +3,6 @@
 const isPresent = require('is-present')
 const sendAction = require('send-action')
 const dotProp = require('dot-prop')
-const extend = require('xtend')
 const yo = require('yo-yo')
 const sr = require('sheet-router')
 const href = require('sheet-router/href')
@@ -47,7 +46,7 @@ function naka () {
     })
 
     href(function (location) {
-      const newState = extend(_state, { location })
+      const newState = Object.assign({}, _state, { location })
       handleChange(undefined, newState, _state)
     })
 
@@ -61,7 +60,7 @@ function naka () {
         const mutatedState = {}
         mutatedState[modelName] = func(action, state, dispatch)
 
-        const newState = extend(state, mutatedState)
+        const newState = Object.assign({}, state, mutatedState)
         return newState
       }
     }
